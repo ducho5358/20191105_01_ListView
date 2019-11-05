@@ -13,13 +13,13 @@ import com.tjoeun.a20191105_01_listview.datas.RoomData
 class RoomAdapter(context:Context, resource:Int, list:ArrayList<RoomData>)
     : ArrayAdapter<RoomData>(context, resource, list) {
 
-    var mContext:RenderScript.ContextType? = null
+    var mContext:Context? = null
     var mList:ArrayList<RoomData>? = null
     var inf:LayoutInflater? = null
 
 
     init {
-        mContext = Context
+        mContext = context
         mList = list
         inf = LayoutInflater.from(mContext)
 
@@ -28,7 +28,7 @@ class RoomAdapter(context:Context, resource:Int, list:ArrayList<RoomData>)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var row = convertView
         if (row == null) {
-            row = inf.inflate(R.layout.room_list_item, null)
+            row = inf?.inflate(R.layout.room_list_item, null)
         }
 
         var roomData = mList?.get(position)
@@ -36,7 +36,7 @@ class RoomAdapter(context:Context, resource:Int, list:ArrayList<RoomData>)
         var priceTxt = row?.findViewById<TextView>(R.id.priceTxt)
         var addressAndFloorTxt = row?.findViewById<TextView>(R.id.addressAndFloorTxt)
 
-        priceTxt?.text = roomData.price.toString()
+        priceTxt?.text = roomData?.price.toString()
         addressAndFloorTxt?.text = "${roomData?.address}, ${roomData?.floor}층"
 
         return row!!
